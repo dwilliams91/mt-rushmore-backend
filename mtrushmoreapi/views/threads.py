@@ -8,7 +8,7 @@ from mtrushmoreapi.models import Thread
 
 class Threads (ViewSet):
     def list(self, request):
-
+        # add comment for contribution
         all_threads=Thread.objects.all()
 
         serializer=ThreadSerializer(all_threads, many=True, context={'request':request})
