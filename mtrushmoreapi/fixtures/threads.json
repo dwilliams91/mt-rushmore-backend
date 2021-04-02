@@ -5,7 +5,7 @@
         "fields": {
             "rushmore_user": 1,
             "group":1,
-            "Title":"Fast Food"
+            "title":"Fast Food"
         }
     },
     {
@@ -14,7 +14,7 @@
         "fields": {
             "rushmore_user": 2,
             "group":1,
-            "Title":"Blink 182 Songs"
+            "title":"Blink 182 Songs"
         }
     }
 ]
