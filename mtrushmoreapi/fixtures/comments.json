@@ -1,0 +1,22 @@
+[
+    {
+        "model": "mtrushmoreapi.Comment",
+        "pk": 1,
+        "fields": {
+            "rushmore_user": 1,
+            "thread":1,
+            "comment":"McDonald's fries are the best"
+            
+        }
+    },
+    {
+        "model": "mtrushmoreapi.Comment",
+        "pk": 2,
+        "fields": {
+            "rushmore_user": 2,
+            "thread":1,
+            "comment":"Chick-fil-a sauce is the best"
+            
+        }
+    }
+]
