@@ -1,0 +1,26 @@
+[
+    {
+        "model": "mtrushmoreapi.Post",
+        "pk": 1,
+        "fields": {
+            "rushmore_user": 1,
+            "thread":1
+        }
+    },
+    {
+        "model": "mtrushmoreapi.Post",
+        "pk": 2,
+        "fields": {
+            "rushmore_user": 2,
+            "thread":1
+        }
+    },
+    {
+        "model": "mtrushmoreapi.Post",
+        "pk": 3,
+        "fields": {
+            "rushmore_user": 1,
+            "thread":2
+        }
+    }
+]

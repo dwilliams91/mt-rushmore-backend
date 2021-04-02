@@ -1,0 +1,9 @@
+[
+    {
+        "model": "mtrushmoreapi.Group",
+        "pk": 1,
+        "fields": {
+            "name": "real-friends"
+        }
+    }
+]

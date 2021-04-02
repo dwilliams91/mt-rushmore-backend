@@ -1,0 +1,20 @@
+[
+    {
+        "model": "mtrushmoreapi.RushmoreUser",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "user_name":"dwillz",
+            "imageURL":""
+        }
+    },
+    {
+        "model": "mtrushmoreapi.RushmoreUser",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "user_name":"brinncle",
+            "imageURL":""
+        }
+    }
+]

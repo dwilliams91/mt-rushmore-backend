@@ -1,0 +1,20 @@
+[
+    {
+        "model": "mtrushmoreapi.Thread",
+        "pk": 1,
+        "fields": {
+            "rushmore_user": 1,
+            "group":1,
+            "Title":"Fast Food"
+        }
+    },
+    {
+        "model": "mtrushmoreapi.Thread",
+        "pk": 2,
+        "fields": {
+            "rushmore_user": 2,
+            "group":1,
+            "Title":"Blink 182 Songs"
+        }
+    }
+]
