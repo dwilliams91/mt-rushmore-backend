@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from mtrushmoreapi.views import Threads
+router = routers.DefaultRouter(trailing_slash=False)
+
 
 router.register(r'threads', Threads, 'thread')
 
