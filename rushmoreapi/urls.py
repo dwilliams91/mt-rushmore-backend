@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from mtrushmoreapi.views import Threads
+from mtrushmoreapi.views import register_user, login_user
 router = routers.DefaultRouter(trailing_slash=False)
 
 
@@ -25,7 +26,7 @@ router.register(r'threads', Threads, 'thread')
 
 urlpatterns = [
     path('', include(router.urls)),
-    # path('register', register_user),
-    # path('login', login_user),
+    path('register', register_user),
+    path('login', login_user),
     path('api-auth', include('rest_framework.urls', namespace='rest_framework'))
 ]

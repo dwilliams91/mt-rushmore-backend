@@ -68,7 +68,7 @@ def register_user(request):
 
     # Now save the extra info in the levelupapi_gamer table
     rushmore_user = RushmoreUser.objects.create(
-        username=req_body['username'],
+        user_name=req_body['username'],
         user=new_user
     )
 
