@@ -4,8 +4,9 @@ from rest_framework import serializers
 from rest_framework import status
 from django.http import HttpResponseServerError
 from django.core.exceptions import ValidationError
-from mtrushmoreapi.models import Option
+from mtrushmoreapi.models import Option, Thread, RushmoreUser
 from django.contrib.auth.models import User
+from rest_framework.decorators import action
 
 
 
@@ -14,8 +15,14 @@ class Options (ViewSet):
         # add comment for contribution
         all_options=Option.objects.all()
 
+
         serializer=OptionSerializer(all_options, many=True, context={'request':request})
         return Response(serializer.data)
+
+    @action(methods=['get'],detail=True)
+    def viewThreadPosts(self,request,pk=None):
+        
+
 
     # def create(self,request):
     #     thread=Thread()
