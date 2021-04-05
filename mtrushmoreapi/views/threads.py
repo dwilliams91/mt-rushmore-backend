@@ -14,15 +14,19 @@ class Threads (ViewSet):
         serializer=ThreadSerializer(all_threads, many=True, context={'request':request})
         return Response(serializer.data)
 
-    # def create(self,request):
-    #     supply_type=SupplyType()
-    #     supply_type.type=request.data["type"]
-    #     try:
-    #         supply_type.save()
-    #         serializer=SupplyTypeSerializer(supply_type, many=False, context={'request':request})
-    #         return Response(serializer.data)
-    #     except ValidationError as ex:
-    #         return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+    def create(self,request):
+        thread=Thread()
+        current_user=User.objects.get(auth_token=request.auth)
+        
+        thread.title=request.data["title"]
+        thread.rushmore_user=current_user
+        thread.group=request.data["group"]
+        try:
+            thread.save()
+            serializer=Thread(supply_type, many=False, context={'request':request})
+            return Response(serializer.data)
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
 class ThreadSerializer(serializers.ModelSerializer):
     class Meta:
