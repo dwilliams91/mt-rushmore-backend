@@ -4,7 +4,10 @@ from rest_framework import serializers
 from rest_framework import status
 from django.http import HttpResponseServerError
 from django.core.exceptions import ValidationError
-from mtrushmoreapi.models import Thread
+from mtrushmoreapi.models import Thread, Group, RushmoreUser
+from django.contrib.auth.models import User
+
+
 
 class Threads (ViewSet):
     def list(self, request):
@@ -16,14 +19,16 @@ class Threads (ViewSet):
 
     def create(self,request):
         thread=Thread()
-        current_user=User.objects.get(auth_token=request.auth)
-        
+        # authuser=User.objects.get(auth_token=request.auth)
+        current_user=RushmoreUser.objects.get(user=request.auth.user)
+
+        group=Group.objects.get(pk=request.data["group_id"])
         thread.title=request.data["title"]
         thread.rushmore_user=current_user
-        thread.group=request.data["group"]
+        thread.group=group
         try:
             thread.save()
-            serializer=Thread(supply_type, many=False, context={'request':request})
+            serializer=Thread(thread, many=False, context={'request':request})
             return Response(serializer.data)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
