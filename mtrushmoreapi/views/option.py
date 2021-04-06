@@ -21,7 +21,6 @@ class Options (ViewSet):
         return Response(serializer.data)
     
     def create(self,request):
-        option=Option()
         current_user=RushmoreUser.objects.get(user=request.auth.user)
         post=Post()
         thread=Thread.objects.get(id=request.data["thread"])
@@ -32,7 +31,10 @@ class Options (ViewSet):
         try:
             post.save()
             list_of_options=request.data["options"]
+            print("list")
+            print(list_of_options)
             for item in list_of_options:
+                option=Option()
                 option.post=post
                 option.option=item
                 option.weight=1
@@ -40,8 +42,8 @@ class Options (ViewSet):
 
 
 
-            serializer=Thread(thread, many=False, context={'request':request})
-            return Response(serializer.data)
+            
+            return Response(status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
