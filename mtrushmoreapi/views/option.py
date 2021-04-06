@@ -41,23 +41,15 @@ class Options (ViewSet):
                 option.save()
 
 
-
+    # {
+    #     "thread":1,
+    #     "options":[ "cheeseburgers","french fries","chips","milkshake"]
+       
+    # }
             
             return Response(status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
-
-        # {
-        #     token:asdfad
-        #     thread:1
-        #     option1: cheeseburgers,
-        #     option2:fries
-        #     option3: milkshake
-        #     option4:chocolate
-        # }
-        
-        
-        
 
     @action(methods=['get'],detail=True)
     def viewthreadposts(self,request,pk=None):
@@ -67,6 +59,21 @@ class Options (ViewSet):
         serializer=OptionSerializer(all_options, many=True, context={'request':request})
 
         return Response(serializer.data)
+
+    @action(methods=['DELETE'],detail=False)
+    def deletePost(self,request,pk=None):
+        
+        try:
+            post_to_delete=Post.objects.get(pk=request.data["post_id"])
+            options_to_delete=Option.objects.filter(post_id=post_to_delete)
+            post_to_delete.delete()
+            for item in options_to_delete:
+                item.delete()
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        except post_to_delete.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
