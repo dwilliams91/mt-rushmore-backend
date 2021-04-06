@@ -27,18 +27,16 @@ class Options (ViewSet):
 
         selected_thread=Thread.objects.get(pk=pk)
         all_thread_post=Post.objects.filter(thread_id=selected_thread)
+        
 
-        all_options=[]
-        for item in all_thread_post:
-            option_to_add=Option.objects.filter(post_id=item)
-            
-            
-            all_options.append(option_to_add)
+        all_options=Option.objects.filter(post_id__thread_id=pk)
         print(all_options)
-        serializer=OptionSerializer(all_options[1], many=True, context={'request':request})
+        
+        serializer=OptionSerializer(all_options, many=True, context={'request':request})
 
         return Response(serializer.data)
-    
+
+
 
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
