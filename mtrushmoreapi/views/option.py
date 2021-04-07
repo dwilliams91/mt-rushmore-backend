@@ -39,14 +39,11 @@ class Options (ViewSet):
                 option.option=item
                 option.weight=1
                 option.save()
-
-
     # {
     #     "thread":1,
     #     "options":[ "cheeseburgers","french fries","chips","milkshake"]
        
-    # }
-            
+    # }     
             return Response(status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
