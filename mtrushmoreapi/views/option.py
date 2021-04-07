@@ -82,13 +82,9 @@ class Options (ViewSet):
             for item in options_to_edit:
                 x=x+1
                 if item.option not in incoming_options:
-                    print("its not here")
                     
-                    print(item)
-                    item=incoming_options[x]
+                    item.option=incoming_options[x]
                     item.save()
-                else:
-                    print("its here")
 
             return Response(status=status.HTTP_201_CREATED)
         except Post.DoesNotExist as ex:
