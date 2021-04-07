@@ -72,8 +72,34 @@ class Options (ViewSet):
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    @action(methods=['PUT'],detail=False)
+    def editPost(self,request):
+        try:
+            post_to_edit=Post.objects.get(pk=request.data["post_id"])
+            options_to_edit=Option.objects.filter(post_id=post_to_edit)
+            incoming_options=request.data["options"]
+            x=-1
+            for item in options_to_edit:
+                x=x+1
+                if item.option not in incoming_options:
+                    print("its not here")
+                    
+                    print(item)
+                    item=incoming_options[x]
+                    item.save()
+                else:
+                    print("its here")
 
+            return Response(status=status.HTTP_201_CREATED)
+        except Post.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    # {
+    #     "options":[ "cheeseburgers","french fries","chips","milkshake"]
+
+    # }
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model=Option
