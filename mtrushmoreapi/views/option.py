@@ -94,8 +94,29 @@ class Options (ViewSet):
 
     # {
     #     "options":[ "cheeseburgers","french fries","chips","milkshake"]
-
     # }
+
+    @action(methods=['get'],detail=True)
+    def findPopularOptions(self,request,pk=None):
+        
+        all_options=list(Option.objects.filter(post_id__thread_id=pk))
+        list_of_options=[]
+        for item in all_options:
+            one_option=item.__dict__
+            list_of_options.append(one_option["option"])
+
+        list_of_lowercase=[]
+        for x in range (0,8):
+            singleItem=list_of_options[x].lower().replace(" ", "").replace("-","")
+            # singleItem=singleItem.strip()
+            list_of_options[x]=singleItem
+        print(list_of_options)
+
+
+        serializer=OptionSerializer(all_options, many=True, context={'request':request})
+
+        return Response(serializer.data)
+
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model=Option
