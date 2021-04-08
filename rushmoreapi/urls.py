@@ -17,7 +17,7 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
-from mtrushmoreapi.views import Threads, Options
+from mtrushmoreapi.views import Threads, Options, Comments
 from mtrushmoreapi.views import register_user, login_user
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -25,6 +25,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 
 router.register(r'threads', Threads, 'thread')
 router.register(r'options', Options, 'option')
+router.register(r'comments', Comments, 'comment')
 
 
 urlpatterns = [
