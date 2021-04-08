@@ -105,7 +105,13 @@ class Options (ViewSet):
             one_option=item.__dict__
             list_of_options.append(one_option["option"])
 
+        list_of_lowercase=[]
+        for x in range (0,8):
+            singleItem=list_of_options[x].lower().replace(" ", "").replace("-","")
+            # singleItem=singleItem.strip()
+            list_of_options[x]=singleItem
         print(list_of_options)
+
 
         serializer=OptionSerializer(all_options, many=True, context={'request':request})
 
