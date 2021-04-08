@@ -19,7 +19,7 @@ class Comments (ViewSet):
     
     def retrieve(self, request, pk=None):
         all_threads_comments=Comment.objects.filter(thread_id=pk)
-        
+
         serializer=CommentSerializer(all_threads_comments, many=True, context={'request':request})
         return Response(serializer.data)
 
@@ -49,6 +49,22 @@ class Comments (ViewSet):
             comment_to_delete=Comment.objects.get(pk=pk, rushmore_user_id=current_user)
             comment_to_delete.delete()
             return Response({}, status=status.HTTP_204_NO_CONTENT)
+        except Comment.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def update(self, request, pk=None):
+        try:
+            
+            current_user=RushmoreUser.objects.get(user=request.auth.user)
+            comment_to_edit=Comment.objects.get(pk=pk, rushmore_user_id=current_user)
+            comment_to_edit.comment=request.data["comment"]
+            comment_to_edit.save()
+
+            serializer=CommentSerializer(comment_to_edit, many=False, context={'request':request})
+            return Response(serializer.data)
+
         except Comment.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         except Exception as ex:
