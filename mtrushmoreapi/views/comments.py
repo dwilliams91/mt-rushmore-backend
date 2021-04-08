@@ -17,21 +17,21 @@ class Comments (ViewSet):
         serializer=CommentSerializer(all_comments, many=True, context={'request':request})
         return Response(serializer.data)
 
-    # def create(self,request):
-    #     thread=Thread()
-    #     # authuser=User.objects.get(auth_token=request.auth)
-    #     current_user=RushmoreUser.objects.get(user=request.auth.user)
+    def create(self,request):
+        comment=Comment()
+        # authuser=User.objects.get(auth_token=request.auth)
+        current_user=RushmoreUser.objects.get(user=request.auth.user)
+        thread=Thread.objects.get(pk=request.data["thread_id"])
 
-    #     group=Group.objects.get(pk=request.data["group_id"])
-    #     thread.title=request.data["title"]
-    #     thread.rushmore_user=current_user
-    #     thread.group=group
-    #     try:
-    #         thread.save()
-    #         serializer=Thread(thread, many=False, context={'request':request})
-    #         return Response(serializer.data)
-    #     except ValidationError as ex:
-    #         return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
+        comment.comment=request.data["comment"]
+        comment.rushmore_user=current_user
+        comment.thread=thread
+        try:
+            comment.save()
+            serializer=CommentSerializer(comment, many=False, context={'request':request})
+            return Response(serializer.data)
+        except ValidationError as ex:
+            return Response({"reason": ex.message}, status=status.HTTP_400_BAD_REQUEST)
 
     # #      {
     # #     "group_id": 1,
