@@ -16,6 +16,12 @@ class Comments (ViewSet):
 
         serializer=CommentSerializer(all_comments, many=True, context={'request':request})
         return Response(serializer.data)
+    
+    def retrieve(self, request, pk=None):
+        all_threads_comments=Comment.objects.filter(thread_id=pk)
+        
+        serializer=CommentSerializer(all_threads_comments, many=True, context={'request':request})
+        return Response(serializer.data)
 
     def create(self,request):
         comment=Comment()
