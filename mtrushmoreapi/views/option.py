@@ -105,12 +105,25 @@ class Options (ViewSet):
             one_option=item.__dict__
             list_of_options.append(one_option["option"])
 
-        list_of_lowercase=[]
-        for x in range (0,8):
+        # remove spaces and hyphens and get everything lower case
+        for x in range (0,len(list_of_options)):
             singleItem=list_of_options[x].lower().replace(" ", "").replace("-","")
             # singleItem=singleItem.strip()
             list_of_options[x]=singleItem
         print(list_of_options)
+
+        similarities=[]
+        for x in range (0,len(list_of_options)):
+            singleItem=list_of_options[x]
+            for i in range(x+1, len(list_of_options)):
+                compareItem=list_of_options[i]
+                
+                if singleItem==compareItem:
+                    similarities.append(singleItem)
+        print(similarities)
+                
+
+
 
 
         serializer=OptionSerializer(all_options, many=True, context={'request':request})
