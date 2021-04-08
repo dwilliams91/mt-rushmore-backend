@@ -107,7 +107,7 @@ class Options (ViewSet):
 
         # remove spaces and hyphens and get everything lower case
         for x in range (0,len(list_of_options)):
-            singleItem=list_of_options[x].lower().replace(" ", "").replace("-","")
+            singleItem=list_of_options[x].lower().replace(" ", "").replace("-","").replace("'","")
             # singleItem=singleItem.strip()
             list_of_options[x]=singleItem
         print(list_of_options)
@@ -117,9 +117,14 @@ class Options (ViewSet):
             singleItem=list_of_options[x]
             for i in range(x+1, len(list_of_options)):
                 compareItem=list_of_options[i]
-                
+
                 if singleItem==compareItem:
                     similarities.append(singleItem)
+                if singleItem in compareItem and singleItem not in similarities:
+                    similarities.append(singleItem)
+                if compareItem in singleItem and compareItem not in similarities:
+                    similarities.append(singleItem)
+
         print(similarities)
                 
 
