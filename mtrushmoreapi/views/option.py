@@ -124,8 +124,21 @@ class Options (ViewSet):
                     similarities.append(singleItem)
                 if compareItem in singleItem and compareItem not in similarities:
                     similarities.append(singleItem)
-
+        
         print(similarities)
+        
+        counter=[]
+        for x in range(0, len(list_of_options[3])):
+            print(list_of_options[3][x])
+            print(list_of_options[7][x])
+            if list_of_options[3][x]==list_of_options[7][x]:
+                counter.append(list_of_options[3][x])
+
+        print(counter)
+
+        
+        # go through each letter and compare it to each letter
+        # if the letters match, 
                 
 
 
