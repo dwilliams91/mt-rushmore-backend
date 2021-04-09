@@ -8,7 +8,8 @@ from mtrushmoreapi.models import Option, Thread, RushmoreUser, Post
 from django.contrib.auth.models import User
 from rest_framework.decorators import action
 from django.forms.models import model_to_dict
-
+from difflib import SequenceMatcher
+import itertools
 
 
 class Options (ViewSet):
@@ -107,20 +108,68 @@ class Options (ViewSet):
 
         # remove spaces and hyphens and get everything lower case
         for x in range (0,len(list_of_options)):
-            singleItem=list_of_options[x].lower().replace(" ", "").replace("-","")
+            singleItem=list_of_options[x].lower().replace(" ", "").replace("-","").replace("'","")
             # singleItem=singleItem.strip()
             list_of_options[x]=singleItem
         print(list_of_options)
 
         similarities=[]
-        for x in range (0,len(list_of_options)):
-            singleItem=list_of_options[x]
-            for i in range(x+1, len(list_of_options)):
-                compareItem=list_of_options[i]
-                
-                if singleItem==compareItem:
-                    similarities.append(singleItem)
+        # for x in range (0,len(list_of_options)):
+        #     singleItem=list_of_options[x]
+        #     for i in range(x+1, len(list_of_options)):
+        #         compareItem=list_of_options[i]
+
+        #         if singleItem==compareItem:
+        #             similarities.append(singleItem)
+        #         if singleItem in compareItem and singleItem not in similarities:
+        #             similarities.append(singleItem)
+        #         if compareItem in singleItem and compareItem not in similarities:
+        #             similarities.append(singleItem)
+        # print(similarities)
+        
+        def find_common_letters(word_1, word_2):
+            print(word_1)
+            print(word_2)
+            
+            if len(word_1)>=len(word_2):
+                second_word=word_1
+                first_word=word_2
+            else:
+                first_word=word_1
+                second_word=word_2
+            
+            # go through each letter of each word and compare them
+            similar_letters=[]
+            for x in range(0, len(first_word)):
+                if first_word[x]==second_word[x]:
+                    similar_letters.append(first_word[x])
+
+            # make a new word of letters in the same position
+            new_string=""
+            for letter in similar_letters:
+                new_string=new_string+letter
+            print(new_string)
+            
+
+            def find_similar_ratio(a,b):
+                return SequenceMatcher(None, a, b).ratio()
+
+            similarRatio=find_similar_ratio(word_1,new_string)
+            print(similarRatio)
+
+            if similarRatio>=.85:
+                similarities.append(word_1)        
+
+            
+        
+
+        for a, b in itertools.combinations(list_of_options, 2):
+            find_common_letters(a, b)
+
         print(similarities)
+        
+        # go through each letter and compare it to each letter
+        # if the letters match, 
                 
 
 

@@ -40,7 +40,7 @@
         "pk": 5,
         "fields": {
             "post": 2,
-            "option":"Zaxbys",
+            "option":"wendy's",
             "weight":1
         }
     },
@@ -49,7 +49,7 @@
         "pk": 6,
         "fields": {
             "post": 2,
-            "option":"McDonalds",
+            "option":"McDonald",
             "weight":1
         }
     },
@@ -67,7 +67,7 @@
         "pk": 8,
         "fields": {
             "post": 2,
-            "option":"Taco Bell",
+            "option":"burger kong",
             "weight":1
         }
     },
