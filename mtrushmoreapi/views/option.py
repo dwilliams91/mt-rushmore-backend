@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from rest_framework.decorators import action
 from django.forms.models import model_to_dict
 from difflib import SequenceMatcher
-
+import itertools
 
 
 class Options (ViewSet):
@@ -127,10 +127,9 @@ class Options (ViewSet):
         #             similarities.append(singleItem)
         # print(similarities)
         
-        
-
         def find_common_letters(word_1, word_2):
-            # first word is shorter
+            print(word_1)
+            print(word_2)
             
             if len(word_1)>=len(word_2):
                 second_word=word_1
@@ -139,28 +138,35 @@ class Options (ViewSet):
                 first_word=word_1
                 second_word=word_2
             
+            # go through each letter of each word and compare them
             similar_letters=[]
             for x in range(0, len(first_word)):
                 if first_word[x]==second_word[x]:
                     similar_letters.append(first_word[x])
-            print(similar_letters)
 
+            # make a new word of letters in the same position
             new_string=""
             for letter in similar_letters:
                 new_string=new_string+letter
             print(new_string)
             
+
             def find_similar_ratio(a,b):
                 return SequenceMatcher(None, a, b).ratio()
 
             similarRatio=find_similar_ratio(word_1,new_string)
             print(similarRatio)
 
+            if similarRatio>=.85:
+                similarities.append(word_1)        
 
-        find_common_letters("McDougalss","McDougils")
+            
+        
 
+        for a, b in itertools.combinations(list_of_options, 2):
+            find_common_letters(a, b)
 
-
+        print(similarities)
         
         # go through each letter and compare it to each letter
         # if the letters match, 
