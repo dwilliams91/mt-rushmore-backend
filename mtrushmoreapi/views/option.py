@@ -128,8 +128,8 @@ class Options (ViewSet):
         # print(similarities)
         
         def find_common_letters(word_1, word_2):
-            print(word_1)
-            print(word_2)
+            # print(word_1)
+            # print(word_2)
             
             if len(word_1)>=len(word_2):
                 second_word=word_1
@@ -143,6 +143,9 @@ class Options (ViewSet):
             for x in range(0, len(first_word)):
                 if first_word[x]==second_word[x]:
                     similar_letters.append(first_word[x])
+
+            # for x in range(len(first_word),0, -1):
+            #     if first_word[x]==second_word[x]
 
             # make a new word of letters in the same position
             new_string=""
