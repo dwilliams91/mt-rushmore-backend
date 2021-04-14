@@ -160,12 +160,12 @@ class Options (ViewSet):
         # if the letters match, 
                 
         for item in similarities:
-            print(item)
-            starting_digits
-            similar_options_in_database=Options.objects.get(option__startswith=)
+            first_letters=item[0:3]
+            print(first_letters)
+            similar_options_in_database=Option.objects.filter(post_id__thread_id=pk, option__startswith=first_letters)
 
 
-        serializer=OptionSerializer(all_options, many=True, context={'request':request})
+        serializer=OptionSerializer(similar_options_in_database, many=True, context={'request':request})
 
         return Response(serializer.data)
 
