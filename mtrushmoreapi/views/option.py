@@ -114,19 +114,7 @@ class Options (ViewSet):
         print(list_of_options)
 
         similarities=[]
-        # for x in range (0,len(list_of_options)):
-        #     singleItem=list_of_options[x]
-        #     for i in range(x+1, len(list_of_options)):
-        #         compareItem=list_of_options[i]
 
-        #         if singleItem==compareItem:
-        #             similarities.append(singleItem)
-        #         if singleItem in compareItem and singleItem not in similarities:
-        #             similarities.append(singleItem)
-        #         if compareItem in singleItem and compareItem not in similarities:
-        #             similarities.append(singleItem)
-        # print(similarities)
-        
         def find_common_letters(word_1, word_2):
             # print(word_1)
             # print(word_2)
@@ -143,9 +131,6 @@ class Options (ViewSet):
             for x in range(0, len(first_word)):
                 if first_word[x]==second_word[x]:
                     similar_letters.append(first_word[x])
-
-            # for x in range(len(first_word),0, -1):
-            #     if first_word[x]==second_word[x]
 
             # make a new word of letters in the same position
             new_string=""
@@ -174,8 +159,10 @@ class Options (ViewSet):
         # go through each letter and compare it to each letter
         # if the letters match, 
                 
-
-
+        for item in similarities:
+            print(item)
+            starting_digits
+            similar_options_in_database=Options.objects.get(option__startswith=)
 
 
         serializer=OptionSerializer(all_options, many=True, context={'request':request})
