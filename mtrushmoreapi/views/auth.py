@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from rest_framework.decorators import action
 from mtrushmoreapi.models import RushmoreUser
+from django.contrib.auth.models import User
 
 
 
@@ -15,28 +16,26 @@ def login_user(request):
 
     # get the post method information
     req_body = json.loads(request.body.decode())
-
+    
     if request.method == 'POST':
         # Use the built-in authenticate method to verify
         email = req_body['email']
+        print(email)
+        username=req_body['email']
         password = req_body['password']
-        authenticated_user = authenticate(email=email, password=password)
+        authenticated_user = authenticate(username=username)
+        user=User.objects.get(username=username)
+        print(user)
 
+        
         # If authentication was successful, respond with their token
-        if authenticated_user is not None:
+        if user is not None:
             # get the token with the user
-            token = Token.objects.get(user=authenticated_user)
+            token = Token.objects.get(user=user)
             # if the user is_staff, return true
-            if authenticated_user.is_staff:
-                data = json.dumps(
-                    {"valid": True, "token": token.key, "is_staff": True})
-                if authenticated_user.is_superuser:
-                    data = json.dumps(
-                    {"valid": True, "token": token.key, "is_staff": True, "is_superuser":True})
-            else:
-                # send else send back false
-                data = json.dumps(
-                    {"valid": True, "token": token.key, "is_staff": False})
+            
+            data = json.dumps(
+                {"valid": True, "token": token.key, "is_staff": True})
 
             return HttpResponse(data, content_type='application/json')
         else:
