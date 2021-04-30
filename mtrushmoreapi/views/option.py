@@ -169,7 +169,9 @@ class Options (ViewSet):
 
         return Response(serializer.data)
 
+
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
+        depth=2
         model=Option
         fields=('id', 'option', 'weight',"post")

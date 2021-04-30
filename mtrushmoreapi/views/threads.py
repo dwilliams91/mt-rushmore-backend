@@ -51,4 +51,4 @@ class Threads (ViewSet):
 class ThreadSerializer(serializers.ModelSerializer):
     class Meta:
         model=Thread
-        fields=('id', 'rushmore_user_id', 'group_id')
+        fields=('id', 'rushmore_user_id', 'group_id', 'title')
